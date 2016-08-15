@@ -77,7 +77,7 @@
     *    
     */    
        
-   package edu.dlnu.liuwenping.Time;    
+   package edu.dlnu.liuwenpeng.Time;    
        
    import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
@@ -692,7 +692,8 @@ import org.jfree.util.ObjectUtilities;
         */    
        @SuppressWarnings("unchecked")
 	public TimeSeriesDataItem addOrUpdate(RegularTimePeriod period,    
-                                             Number value) {    
+                                             Number value) {  
+    	 //  System.out.println(value);
        
            if (period == null) {    
                throw new IllegalArgumentException("Null 'period' argument.");    

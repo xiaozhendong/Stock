@@ -49,7 +49,7 @@ import edu.dlnu.liuwenpeng.NewTime.Minute;
 public List<Minute> CreateRangeDate(List<Minute> dates) {
 	List<Minute> rangeDates=new ArrayList<>();
 	Minute primeDate=getMindate(dates);
-
+	//System.out.println(getMaxdate(dates));
 	while(primeDate.compareTo(getMaxdate(dates))!=0) {
 		
 		Minute rangeDate=add(primeDate,1);

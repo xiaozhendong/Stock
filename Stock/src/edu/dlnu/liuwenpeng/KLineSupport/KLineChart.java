@@ -273,14 +273,38 @@ public class KLineChart implements StockChart {
 		XYPlot candlePlot = (XYPlot) list.get(0);
 		
 		candlePlot.setDataset(0, k_line);
-
 	}
 
+	
 	public ChartPanel createDemoPanel() {
 		JFreeChart jfreechart = Create();
 		return new ChartPanel(jfreechart);
 	}
+	
+	
+	/*private void ExChangeChart(JFreeChart chart1){
+		Map m = createDatasetMap();
+		OHLCDataset k_line = (OHLCDataset) m.get("k_line");
 
+		JFreeChart chart = chart1;
+		CombinedDomainXYPlot plot = (CombinedDomainXYPlot) chart.getPlot();
+		series2.clear();
+		for (int j = 0; j < ls.size(); j++) {
+			Map vMap = (Map) ls.get(j);
+			String year = vMap.get("issue_date").toString().substring(0, 4);
+			String month = vMap.get("issue_date").toString().substring(4, 6);
+			String day = vMap.get("issue_date").toString().substring(6, 8);
+			String time = year + "-" + month + "-" + day;
+			double vol = Double.parseDouble((String) vMap.get("volume_value")) / 10000000;
+			series2.addOrUpdate(Day.parseDay(time), vol);
+		}
+		dateaxis.setRange(mindate, maxdate);
+        dateaxis.setTimeline(timeline.finalTimeline());
+		List list = plot.getSubplots();
+		XYPlot candlePlot = (XYPlot) list.get(0);
+		
+		candlePlot.setDataset(0, k_line);
+	}*/
 	@Override
 	/*
 	 * (non-Javadoc)
@@ -311,6 +335,7 @@ public class KLineChart implements StockChart {
 		}
 
 		jChart = Create();
+	
 		return jChart;
 	}
 
@@ -345,5 +370,30 @@ public class KLineChart implements StockChart {
 		postRecord();
 		ChangeChart(jChart);
 	}
+	
+	/*public synchronized void ExChangeChart(Data data) {
+	
+		for (DataItem dataItem : data) {
+			insertRecord();
+			setValue("stock_name", dataItem.get("code"));
+			setValue("issue_date", dataItem.get("time"));// 时间这个date格式不对
+			setValue("open_value", dataItem.get("open"));
+			setValue("high_value", dataItem.get("highest"));
+			setValue("low_value", dataItem.get("lowest"));
+			setValue("close_value", dataItem.get("close"));
+			setValue("avg5", "0");
+			setValue("avg10", "0");
+			setValue("avg20", "0");
+			setValue("avg60", "0");
+			setValue("volume_value", dataItem.get("volume"));
+			setValue("vol_avg5", "0");
+			
+			postRecord();
 
+		}
+		
+		ExChangeChart(jChart);
+		System.out.println("here");
+	}
+*/
 }

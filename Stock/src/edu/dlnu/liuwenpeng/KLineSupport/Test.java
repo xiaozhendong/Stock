@@ -17,7 +17,7 @@ public class Test {
 	public Test() {
 		
 		HQBase.Connect("211.100.49.196", 7709);
-		Data data=KData.Init(4, "000006");
+		Data data=KData.Init(4, "000007");
 	   /* for (DataItem dataItem : data) {
 			System.out.println(dataItem.get(1));
 		}*/
@@ -36,14 +36,18 @@ public class Test {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (i>=3&&i<=7) {
-				Data data2=TransactionData.Init("000006");
-				jfreechartTest.UpdateChart(data2);
+			if (i==2) {
+				
+				Data data2=KData.Init(4,"000006");
+				//data2.update();
+				
 			}
-			if (i>=9&&i<=14) {
-				Data data2=TransactionData.Init("000009");
+			/*if (i>=9&&i<=14) {
+				//data.update();
+				Data data2=KData.Init(4,"000009");
+				data2.update();
 				jfreechartTest.UpdateChart(data2);
-			}
+			}*/
 		
 		}
 		HQBase.Disconnect();

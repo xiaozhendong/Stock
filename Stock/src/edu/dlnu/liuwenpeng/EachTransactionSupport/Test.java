@@ -36,7 +36,7 @@ public class Test {
 		 jFrame.setSize(1000,600 );
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		for (int i = 0; i < 100; i++) {
+		//for (int i = 0; i < 100; i++) {
 			long start=System.currentTimeMillis();
 			data.update();
 			try {
@@ -56,15 +56,12 @@ public class Test {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (i>=3&&i<=7) {
-				Data data2=TransactionData.Init("000007");
+			//if (i>=3&&i<=7) {
+				Data data2=MinuteTimeData.Init("000007");
 				eachTransactionChart.UpdateChart(data2);
-			}
-			if (i>=9&&i<=14) {
-				Data data2=TransactionData.Init("000009");
-				eachTransactionChart.UpdateChart(data2);
-			}
-		}
+			//}
+		
+		//}
 		HQBase.Disconnect();
 	}
 	

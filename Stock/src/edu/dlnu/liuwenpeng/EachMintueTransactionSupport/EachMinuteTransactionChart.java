@@ -13,14 +13,13 @@ import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.XYDataset;
 
-import edu.dlnu.liuwenping.Time.TimeSeries;
-import edu.dlnu.liuwenping.Time.TimeSeriesCollection;
 import edu.dlnu.liuwenpeng.Chart.StockChart;
 import edu.dlnu.liuwenpeng.DataInterface.Data;
 import edu.dlnu.liuwenpeng.DataInterface.DataItem;
 import edu.dlnu.liuwenpeng.NewTime.Minute;
+import edu.dlnu.liuwenpeng.Time.TimeSeries;
+import edu.dlnu.liuwenpeng.Time.TimeSeriesCollection;
 import edu.dlnu.liuwenpeng.render.NewXYBarRenderer;
 import edu.dlnu.liuwenpeng.render.XYLineAndShapeRenderer;
 
@@ -95,6 +94,7 @@ public class EachMinuteTransactionChart implements StockChart {
 
 	@Override
 	public JFreeChart createChart(Data data) {
+	
 		TimeSeriesCollection numtimeSeriesCollection = CreateNumTimeCollection(data);
 		TimeSeriesCollection priceTimeSeriesCollection = CreatePriceTimeCollection(data);
 		// System.out.println(priceTimeSeriesCollection.getItemCount(0));
@@ -134,15 +134,25 @@ public class EachMinuteTransactionChart implements StockChart {
 	@Override
 	public void UpdateChart(Data data) {
 		
+		List<Minute> newtimeList = new LinkedList<>();
+	 
 		minprice = Double.parseDouble(data.get(0).get("price"));
 		maxprice = Double.parseDouble(data.get(0).get("price"));
 		double num = 0;
 		DataItem date1;
-
+		  try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    Numseries.clear();
+		    Priceseries.clear();
 	
 		for (int i = 0; i <data.size()-1; i++) {
 			
-				
+			//Numseries.setNotify(false);
+			//Priceseries.setNotify(false);
 			date1=data.get(i);
 			String time = nowdate + " " + date1.get("time");
 			String bsString = date1.get("bs");
@@ -163,28 +173,35 @@ public class EachMinuteTransactionChart implements StockChart {
 			if (minprice > price) {
 				minprice = price;
 			}
-			timeList.add(minute);
+			newtimeList.add(minute);
+			//Numseries.clear();
+			
+
 			Numseries.addOrUpdate(minute, num);
 			Priceseries.addOrUpdate(minute,price);
 			
-			
+		
 			
 			
 		}
+		timeLine2.ExceptionDate(newtimeList);
+		
 		y2Axis.setRange(minprice * 0.99, maxprice * 1.01);
 	    x1Axis.setTimeline(timeLine2.finalTimeline());
-		/*java.util.List ls = ((CombinedDomainXYPlot) chart.getPlot()).getSubplots();
+	/*	java.util.List ls = ((CombinedDomainXYPlot) chart.getPlot()).getSubplots();
 		XYPlot pricecategoryPlot2 = (XYPlot) ls.get(0);
+		XYLineAndShapeRenderer xyLineAndShapeRenderer=pricecategoryPlot2.getRenderer();
+		//xyLineAndShapeRenderer
 		XYPlot categoryPlot2 = (XYPlot) ls.get(1);
 		XYDataset xyDataset=CreatePriceTimeCollection(data);
 		XYDataset xyNunDataset=CreateNumTimeCollection(data);
 		
 		pricecategoryPlot2.setDataset(xyDataset);
 		categoryPlot2.setDataset(xyNunDataset);
+		
 		y2Axis.setRange(minprice * 0.99, maxprice * 1.01);
 		x1Axis.setTimeline(timeLine2.finalTimeline());*/
-
-	}
+	  	}
 
 	@Override
 	public void Clear() {
@@ -192,22 +209,5 @@ public class EachMinuteTransactionChart implements StockChart {
 
 	}
 
-	/*
-	 * public static void main(String args[]) { 分时成交 test = new 分时成交();
-	 * HQBase.Connect("121.14.110.200", 443); Data data =
-	 * TransactionData.Init("000001"); ChartFrame frame = new
-	 * ChartFrame("中国联通股票", test.create(data)); frame.pack();
-	 * frame.setVisible(true); test.run(); HQBase.Disconnect();
-	 * 
-	 * }
-	 * 
-	 * @Override public void run() { HQBase.Connect("121.14.110.200", 443);
-	 * 
-	 * for(int i=0;i<30;i++){ Data data = TransactionData.Init("000001");
-	 * data.update(); //System.out.println("xzd"); update(data); try {
-	 * Thread.sleep(10000); } catch (InterruptedException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); } }
-	 * 
-	 * }
-	 */
+
 }

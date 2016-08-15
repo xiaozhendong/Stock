@@ -23,19 +23,29 @@ public class Test {
 		 jFrame.setSize(1000,600 );
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 1000; i++) {
 			long start=System.currentTimeMillis();
 			data.update();
-			eachMinuteTransactionChart.UpdateChart(data);
-			/*if (i>=3&&i<=7) {
-				Data data2=TransactionData.Init("000007");
-				eachMinuteTransactionChart.UpdateChart(data2);
-			}
-			if (i>=9&&i<=14) {
+			//eachMinuteTransactionChart.UpdateChart(data);
+			
+				//data.update();
+			
+				eachMinuteTransactionChart.UpdateChart(data);
+		
+			
+			/*if (i>=9&&i<=14) {
+				//data.update();
 				Data data2=TransactionData.Init("000009");
 				eachMinuteTransactionChart.UpdateChart(data2);
 			}*/
 			//System.out.println("h");
+			try {
+				
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			long end=System.currentTimeMillis();
 			//System.out.println(end-start);
 		

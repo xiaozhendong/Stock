@@ -532,7 +532,7 @@ import edu.dlnu.liuwenpeng.EachTransactionSupport.GetAverage;
         * @see #getSeriesShapesVisible(int)    
         */    
        public void setSeriesShapesVisible(int series, Boolean flag) {    
-           this.seriesShapesVisible.setBoolean(series, flag);    
+           this.seriesShapesVisible.setBoolean(series, false);    
            fireChangeEvent();    
        }    
        
@@ -1040,7 +1040,7 @@ import edu.dlnu.liuwenpeng.EachTransactionSupport.GetAverage;
         protected void drawFirstPassShape(Graphics2D g2, int pass, int series,    
                                           int item, Shape shape) {    
             g2.setStroke(getItemStroke(series, item));    
-            g2.setPaint(getItemPaint(series, item));    
+            g2.setPaint(Color.red);    
             g2.draw(shape);    
         }    
         
@@ -1173,7 +1173,7 @@ import edu.dlnu.liuwenpeng.EachTransactionSupport.GetAverage;
                         else {    
                             g2.setPaint(getItemPaint(series, item));    
                         }    
-                        g2.fill(shape);    
+                        //g2.fill(shape);    
                     }    
                     if (this.drawOutlines) {    
                         if (getUseOutlinePaint()) {    
@@ -1183,7 +1183,7 @@ import edu.dlnu.liuwenpeng.EachTransactionSupport.GetAverage;
                             g2.setPaint(getItemPaint(series, item));    
                         }    
                         g2.setStroke(getItemOutlineStroke(series, item));    
-                        g2.draw(shape);    
+                       // g2.draw(shape);    
                     }    
                 }    
             }    

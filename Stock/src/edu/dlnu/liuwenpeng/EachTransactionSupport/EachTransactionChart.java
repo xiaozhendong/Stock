@@ -16,6 +16,10 @@ import edu.dlnu.liuwenpeng.DataInterface.DataItem;
 import edu.dlnu.liuwenpeng.render.BarRenderer;
 import edu.dlnu.liuwenpeng.render.LineAndShapeRenderer;
 
+/**
+ * @author mr.xiao
+ *
+ */
 public class EachTransactionChart implements StockChart {
 	private  JFreeChart chart;
 	private double maxprice;
@@ -57,6 +61,10 @@ public class EachTransactionChart implements StockChart {
 		return dataset;
 		
 	}
+	
+	
+	
+	
 	@Override
 	public JFreeChart createChart(Data data) {
 			DefaultCategoryDataset dataset=createNumDataset(data);

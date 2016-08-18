@@ -126,7 +126,6 @@ public class EachTransactionChart implements StockChart {
 
 	@Override
 	public void Clear() {
-		// TODO Auto-generated method stub
 		
 	}
 	

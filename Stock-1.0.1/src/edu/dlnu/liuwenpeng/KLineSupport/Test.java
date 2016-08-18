@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 
-import tets.HQBase;
+import edu.dlnu.liuwenpeng.StockData.HQBase;
 import edu.dlnu.liuwenpeng.DataInterface.Data;
 import edu.dlnu.liuwenpeng.StockData.KData;
 import edu.dlnu.liuwenpeng.StockData.TransactionData;

@@ -43,6 +43,7 @@ public class EachMinuteTransactionChart implements StockChart {
 	private JFreeChart chart;
 	private NumberAxis y2Axis = new NumberAxis();
 	private DateAxis x1Axis = new DateAxis();
+
 	private TimeSeriesCollection CreateNumTimeCollection(Data data) {
 		double num = 0;
 		for (DataItem date1 : data) {
@@ -67,7 +68,7 @@ public class EachMinuteTransactionChart implements StockChart {
 		return NumtimeSeriesCollection;
 
 	}
-	
+
 	private TimeSeriesCollection CreatePriceTimeCollection(Data data) {
 
 		minprice = Double.parseDouble(data.get(0).get("price"));
@@ -77,7 +78,7 @@ public class EachMinuteTransactionChart implements StockChart {
 			Minute minute = Minute.parseMinute(time);
 			Double price = Double.parseDouble(date1.get("price"));
 			ls.add(price);
-			
+
 			if (maxprice < price) {
 				maxprice = price;
 			}
@@ -86,7 +87,7 @@ public class EachMinuteTransactionChart implements StockChart {
 			}
 			Priceseries.addOrUpdate(minute, price);
 		}
-		
+
 		PricetimeSeriesCollection.addSeries(Priceseries);
 		return PricetimeSeriesCollection;
 
@@ -94,14 +95,12 @@ public class EachMinuteTransactionChart implements StockChart {
 
 	@Override
 	public JFreeChart createChart(Data data) {
-	
+
 		TimeSeriesCollection numtimeSeriesCollection = CreateNumTimeCollection(data);
 		TimeSeriesCollection priceTimeSeriesCollection = CreatePriceTimeCollection(data);
-		// System.out.println(priceTimeSeriesCollection.getItemCount(0));
-		//Priceseries.setNotify(false);
 		NewXYBarRenderer xyBarRenderer = new NewXYBarRenderer();
 		xyBarRenderer.setMargin(0.5);
-		
+
 		x1Axis.setAutoRange(true);
 		x1Axis.setTimeline(timeLine2.finalTimeline());
 		x1Axis.setTickLabelPaint(Color.white);
@@ -113,7 +112,7 @@ public class EachMinuteTransactionChart implements StockChart {
 		XYPlot plot2 = new XYPlot(numtimeSeriesCollection, x1Axis, y1Axis,
 				xyBarRenderer);
 		plot2.setBackgroundPaint(Color.black);
-	
+
 		y2Axis.setRange(minprice * 0.99, maxprice * 1.01);
 		y2Axis.setTickLabelPaint(Color.white);
 		XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
@@ -133,27 +132,15 @@ public class EachMinuteTransactionChart implements StockChart {
 
 	@Override
 	public void UpdateChart(Data data) {
-		
+
 		List<Minute> newtimeList = new LinkedList<>();
-	 
+
 		minprice = Double.parseDouble(data.get(0).get("price"));
 		maxprice = Double.parseDouble(data.get(0).get("price"));
 		double num = 0;
 		DataItem date1;
-		  try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    Numseries.clear();
-		    Priceseries.clear();
-	
-		for (int i = 0; i <data.size()-1; i++) {
-			
-			//Numseries.setNotify(false);
-			//Priceseries.setNotify(false);
-			date1=data.get(i);
+		for (int i = 0; i < data.size() - 1; i++) {
+			date1 = data.get(i);
 			String time = nowdate + " " + date1.get("time");
 			String bsString = date1.get("bs");
 			if (bsString.equals("S")) {
@@ -162,11 +149,7 @@ public class EachMinuteTransactionChart implements StockChart {
 				num = Double.parseDouble(date1.get("num"));
 			}
 			Minute minute = Minute.parseMinute(time);
-			
 			Double price = Double.parseDouble(date1.get("price"));
-			
-			//ls.add(price);
-			
 			if (maxprice < price) {
 				maxprice = price;
 			}
@@ -174,40 +157,39 @@ public class EachMinuteTransactionChart implements StockChart {
 				minprice = price;
 			}
 			newtimeList.add(minute);
-			//Numseries.clear();
-			
-
 			Numseries.addOrUpdate(minute, num);
-			Priceseries.addOrUpdate(minute,price);
-			
-		
-			
-			
+			Priceseries.addOrUpdate(minute, price);
 		}
 		timeLine2.ExceptionDate(newtimeList);
-		
+
 		y2Axis.setRange(minprice * 0.99, maxprice * 1.01);
-	    x1Axis.setTimeline(timeLine2.finalTimeline());
-	/*	java.util.List ls = ((CombinedDomainXYPlot) chart.getPlot()).getSubplots();
-		XYPlot pricecategoryPlot2 = (XYPlot) ls.get(0);
-		XYLineAndShapeRenderer xyLineAndShapeRenderer=pricecategoryPlot2.getRenderer();
-		//xyLineAndShapeRenderer
-		XYPlot categoryPlot2 = (XYPlot) ls.get(1);
-		XYDataset xyDataset=CreatePriceTimeCollection(data);
-		XYDataset xyNunDataset=CreateNumTimeCollection(data);
-		
-		pricecategoryPlot2.setDataset(xyDataset);
-		categoryPlot2.setDataset(xyNunDataset);
-		
-		y2Axis.setRange(minprice * 0.99, maxprice * 1.01);
-		x1Axis.setTimeline(timeLine2.finalTimeline());*/
-	  	}
+		x1Axis.setTimeline(timeLine2.finalTimeline());
+		/*
+		 * java.util.List ls = ((CombinedDomainXYPlot)
+		 * chart.getPlot()).getSubplots(); XYPlot pricecategoryPlot2 = (XYPlot)
+		 * ls.get(0); XYLineAndShapeRenderer
+		 * xyLineAndShapeRenderer=pricecategoryPlot2.getRenderer();
+		 * //xyLineAndShapeRenderer XYPlot categoryPlot2 = (XYPlot) ls.get(1);
+		 * XYDataset xyDataset=CreatePriceTimeCollection(data); XYDataset
+		 * xyNunDataset=CreateNumTimeCollection(data);
+		 * 
+		 * pricecategoryPlot2.setDataset(xyDataset);
+		 * categoryPlot2.setDataset(xyNunDataset);
+		 * 
+		 * y2Axis.setRange(minprice * 0.99, maxprice * 1.01);
+		 * x1Axis.setTimeline(timeLine2.finalTimeline());
+		 */
+	}
 
 	@Override
 	public void Clear() {
-		// TODO Auto-generated method stub
+		/*
+		 * try { Thread.sleep(1000); } catch (InterruptedException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
+		Numseries.clear();
+		Priceseries.clear();
 
 	}
-
 
 }

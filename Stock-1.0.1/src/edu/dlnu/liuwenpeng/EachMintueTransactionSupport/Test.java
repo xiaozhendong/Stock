@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
 
-import tets.HQBase;
+import edu.dlnu.liuwenpeng.StockData.HQBase;
 import edu.dlnu.liuwenpeng.DataInterface.Data;
 import edu.dlnu.liuwenpeng.StockData.TransactionData;
 
@@ -26,11 +26,18 @@ public class Test {
 		for (int i = 0; i < 1000; i++) {
 			long start=System.currentTimeMillis();
 			data.update();
-			//eachMinuteTransactionChart.UpdateChart(data);
-			
-				//data.update();
-			
+			if (i<10) {
+				System.out.println(i);
+				
 				eachMinuteTransactionChart.UpdateChart(data);
+			}
+				if (i>=10) {
+					Data data1=TransactionData.Init("000009");	
+					if (i==10) {
+							eachMinuteTransactionChart.Clear();
+					}
+					eachMinuteTransactionChart.UpdateChart(data1);
+				}
 		
 			
 			/*if (i>=9&&i<=14) {

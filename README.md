@@ -6,3 +6,5 @@
 5.if you use my code in business,please contact me by E-mail.my e-mail address is coder_xiao@163.com<br/>
 <big>All rights reserved;Without permission;Press Ban</big><br/>
 ================================================================================================
+Stock-1.0.1:<br/>
+fix the leftover problem of EachMinuteTransaction data.   2016-8-18<br/>

@@ -11,6 +11,7 @@ import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickMarkPosition;
 import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 
@@ -114,6 +115,7 @@ public class EachMinuteTransactionChart implements StockChart {
 		plot2.setBackgroundPaint(Color.black);
 
 		y2Axis.setRange(minprice * 0.99, maxprice * 1.01);
+		y2Axis.setTickUnit(new NumberTickUnit((maxprice * 1.01-minprice * 0.99)/3.0));
 		y2Axis.setTickLabelPaint(Color.white);
 		XYLineAndShapeRenderer xyLineAndShapeRenderer = new XYLineAndShapeRenderer();
 		xyLineAndShapeRenderer.setSeriesShapesVisible(0, false);
@@ -161,7 +163,7 @@ public class EachMinuteTransactionChart implements StockChart {
 			Priceseries.addOrUpdate(minute, price);
 		}
 		timeLine2.ExceptionDate(newtimeList);
-
+		y2Axis.setTickUnit(new NumberTickUnit((maxprice * 1.01-minprice * 0.99)/2.0));
 		y2Axis.setRange(minprice * 0.99, maxprice * 1.01);
 		x1Axis.setTimeline(timeLine2.finalTimeline());
 		/*

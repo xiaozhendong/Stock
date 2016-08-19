@@ -84,7 +84,7 @@ public class EachTransactionChart implements StockChart {
 	        pricerangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 	        pricerangeAxis.setAutoRangeIncludesZero(true);
 	        pricerangeAxis.setRange(minprice*0.99,maxprice*1.01);
-	        pricerangeAxis.setTickUnit(new NumberTickUnit(0.1));
+	        pricerangeAxis.setTickUnit(new NumberTickUnit((maxprice * 1.01-minprice * 0.99)/2.0));
 	        pricerangeAxis.setTickLabelPaint(Color.white);
 	        
 	        final BarRenderer renderer = new BarRenderer();
@@ -121,7 +121,7 @@ public class EachTransactionChart implements StockChart {
 		pricecategoryPlot2.setDataset(createPriceDataset(data));
 		categoryPlot2.setDataset(createNumDataset(data));
 		pricerangeAxis.setRange(minprice*0.99,maxprice*1.01); 
-		
+		pricerangeAxis.setTickUnit(new NumberTickUnit((maxprice * 1.01-minprice * 0.99)/2.0));
 	}
 
 	@Override

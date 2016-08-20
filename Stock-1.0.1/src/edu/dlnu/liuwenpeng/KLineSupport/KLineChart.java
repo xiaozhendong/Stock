@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ import edu.dlnu.liuwenpeng.DataInterface.DataItem;
 public class KLineChart implements StockChart {
 	private NumberAxis numberAxis = new NumberAxis("");
 	@SuppressWarnings("rawtypes")
-	private List ls = new ArrayList();// 定义一个用来保存数据的集合类List
+	private List ls = new LinkedList<>();// 定义一个用来保存数据的集合类List
 	@SuppressWarnings("rawtypes")
 	private Map map = null;// 用来表示一条记录
 	private DateAxis dateaxis = new DateAxis("");
@@ -91,9 +92,6 @@ public class KLineChart implements StockChart {
 		
 		candlesRender.setBaseToolTipGenerator(new HighLowItemLabelGenerator(
 				new SimpleDateFormat("yyyy-MM-dd"), new DecimalFormat("0.00")));
-		// candlesRender.setAutoWidthGap(0D);
-	
-		///numberAxis.setRange(minValieOfKLine*0.95,maxValueOfKLine*1.05);
 		NumberAxis y2Axis = new NumberAxis();
 
 		y2Axis.setAutoRange(true);

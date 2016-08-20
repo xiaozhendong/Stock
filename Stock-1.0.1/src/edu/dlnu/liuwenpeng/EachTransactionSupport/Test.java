@@ -35,10 +35,12 @@ public class Test {
 		jFrame=new ChartFrame("¹ÉÆ±", chart);
 		 jFrame.setSize(1000,600 );
 		jFrame.setVisible(true);
+		Data data2=MinuteTimeData.Init("000007");
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//for (int i = 0; i < 100; i++) {
-			long start=System.currentTimeMillis();
+		for (int i = 0; i < 100; i++) {
+			//long start=System.currentTimeMillis();
 			data.update();
+			data2.update();
 			try {
 				
 				Thread.sleep(1000);
@@ -46,9 +48,15 @@ public class Test {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			eachTransactionChart.UpdateChart(data);
-			long end=System.currentTimeMillis();
-			System.out.println(end-start);
+			if (i<5) {
+				eachTransactionChart.UpdateChart(data);
+			}else{
+				eachTransactionChart.UpdateChart(data2);
+			}
+			
+			//long end=System.currentTimeMillis();
+			//System.out.println(end-start);
+			
 			try {
 				
 				Thread.sleep(1000);
@@ -57,9 +65,9 @@ public class Test {
 				e.printStackTrace();
 			}
 			//if (i>=3&&i<=7) {
-				Data data2=MinuteTimeData.Init("000007");
-				eachTransactionChart.UpdateChart(data2);
-			//}
+				
+				
+			}
 		
 		//}
 		HQBase.Disconnect();

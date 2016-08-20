@@ -15,7 +15,7 @@ public class Test {
 
 	public Test() {
 		HQBase.Connect("211.100.49.196", 7709);
-		Data data=TransactionData.Init("000008");
+		Data data=TransactionData.Init("000009");
 		EachMinuteTransactionChart eachMinuteTransactionChart=new EachMinuteTransactionChart();
 	JFreeChart chart=	eachMinuteTransactionChart.createChart(data);
 		ChartFrame jFrame;

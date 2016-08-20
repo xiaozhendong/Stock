@@ -8,3 +8,4 @@
 ================================================================================================
 Stock-1.0.1:<br/>
 fix the leftover problem of EachMinuteTransaction data.   2016-8-18<br/>
+fix KLineChart and EachMintueTransactionChart switchover problem and some stack Over flow problem  2016-8-20<br/>

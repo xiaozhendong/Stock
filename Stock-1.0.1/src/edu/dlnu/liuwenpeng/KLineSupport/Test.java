@@ -26,22 +26,33 @@ public class Test {
 		 jFrame.pack();
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Data data2=KData.Init(4,"000006");
 		for (int i = 0; i <100; i++) {
-		
+		//	System.out.println(i);
+		if(i<=4){
 			data.update();
+			data2.update();
 			jfreechartTest.UpdateChart(data);//更新这块有问题
+		}else {
+			if (i==5) {
+				jfreechartTest.Clear();
+			}
+			
+			jfreechartTest.UpdateChart(data2);
+		}
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (i==2) {
+			
 				
-				Data data2=KData.Init(4,"000006");
+				
 				//data2.update();
 				
-			}
+				
+			
 			/*if (i>=9&&i<=14) {
 				//data.update();
 				Data data2=KData.Init(4,"000009");

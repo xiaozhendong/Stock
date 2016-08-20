@@ -13,12 +13,11 @@ import org.jfree.chart.axis.SegmentedTimeline;
  */
 class StockTimeLine {
 
-	private SegmentedTimeline timeline = new SegmentedTimeline(
-			SegmentedTimeline.DAY_SEGMENT_SIZE, 7, 0);
+	private SegmentedTimeline timeline;
 	private StockDate stockDate = new StockDate();
 
 	public StockTimeLine() {
-
+		timeline= new SegmentedTimeline(SegmentedTimeline.DAY_SEGMENT_SIZE, 7, 0);
 	}
 
 
@@ -27,13 +26,19 @@ class StockTimeLine {
 	 * @param date A list of date
 	 */
 	@SuppressWarnings("static-access")
-	public void ExceptionDate(List<Date> date) {
+	public void ExceptionDate(List<Date> date,boolean is_New_A_Timeline) {
+		if (is_New_A_Timeline) {
+			timeline= new SegmentedTimeline(SegmentedTimeline.DAY_SEGMENT_SIZE, 7, 0);
+			System.out.println("kje");
+		}
+		 
+		stockDate.rangeDates.clear();
 		timeline.setStartTime(timeline.firstMondayAfter1900());
 		List<Date> rangeDates = stockDate.CreateRangeDate(date);
 		for (Date date2 : rangeDates) {
 			if (!date.contains(date2)) {
-
 				timeline.addException(date2);
+				
 			}
 
 		}
@@ -70,6 +75,7 @@ class StockTimeLine {
 	 * @see edu.dlnu.liuwenpeng.KLineSupport.StockTimeLine
 	 */
 	public SegmentedTimeline finalTimeline() {
+		
 		return this.timeline;
 	}
 

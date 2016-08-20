@@ -9,6 +9,7 @@ import java.util.List;
    /*
     * 整个类的作用是对产生一个输入list日期里最大最小范围内的一个日期
     */
+	public List<Date> rangeDates=new ArrayList<>();
 	public StockDate() {
 	
 	}
@@ -53,7 +54,7 @@ import java.util.List;
 	 * 获得最大最小日期范围连续的日期
 	 */
 public List<Date> CreateRangeDate(List<Date> dates) {
-	List<Date> rangeDates=new ArrayList<>();
+	
 	Date primeDate=getMindate(dates);
 	
 	while(primeDate.compareTo(getMaxdate(dates))!=0) {

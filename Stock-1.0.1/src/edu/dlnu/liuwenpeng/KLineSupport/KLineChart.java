@@ -20,7 +20,9 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.HighLowItemLabelGenerator;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
+
 import edu.dlnu.liuwenpeng.render.CandlestickRenderer;
+
 import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
@@ -37,7 +39,7 @@ import edu.dlnu.liuwenpeng.DataInterface.DataItem;
  */
 
 public class KLineChart implements StockChart {
-
+	private NumberAxis numberAxis = new NumberAxis("");
 	@SuppressWarnings("rawtypes")
 	private List ls = new ArrayList();// 定义一个用来保存数据的集合类List
 	@SuppressWarnings("rawtypes")
@@ -58,12 +60,19 @@ public class KLineChart implements StockChart {
 	private DataAxisRangeOfKLine data=new DataAxisRangeOfKLine();
 	private TimeSeriesCollection timeSeriesCollection = new TimeSeriesCollection();
 	private JFreeChart jfreechart;
+	private boolean is_new_a_timeline=false;
 	/**
 	 * 清空保存数据的集合类List
 	 */
+	
+	private void ClearList() {
+		ls.clear();
+	}
 	@Override
 	public void Clear() {
+		is_new_a_timeline=true;
 		ls.clear();
+		series2.clear();
 	}
 
 	/**
@@ -83,8 +92,8 @@ public class KLineChart implements StockChart {
 		candlesRender.setBaseToolTipGenerator(new HighLowItemLabelGenerator(
 				new SimpleDateFormat("yyyy-MM-dd"), new DecimalFormat("0.00")));
 		// candlesRender.setAutoWidthGap(0D);
-		NumberAxis numberAxis = new NumberAxis("");
-		numberAxis.setRange(minValieOfKLine*0.95,maxValueOfKLine*1.05);
+	
+		///numberAxis.setRange(minValieOfKLine*0.95,maxValueOfKLine*1.05);
 		NumberAxis y2Axis = new NumberAxis();
 
 		y2Axis.setAutoRange(true);
@@ -230,7 +239,7 @@ public class KLineChart implements StockChart {
 		}
 		
 		
-		timeline.ExceptionDate(rdates);
+		timeline.ExceptionDate(rdates,is_new_a_timeline);
 		maxdate=timeline.getMaxDate(rdates);
 		mindate=timeline.getMinDate(rdates);
 		maxValueOfKLine=data.getMaxValue(highdata);
@@ -243,7 +252,10 @@ public class KLineChart implements StockChart {
 		m.put("vol", timeSeriesCollection);
 		m.put("k_line", k_line);
 		m.put("stock_name", stock_name);
-
+		rdates.clear();
+		highdata.clear();
+		lowdata.clear();
+		is_new_a_timeline=false;
 		return m;
 	}
 
@@ -257,7 +269,7 @@ public class KLineChart implements StockChart {
 
 		JFreeChart chart = chart1;
 		CombinedDomainXYPlot plot = (CombinedDomainXYPlot) chart.getPlot();
-
+		
 		for (int j = 0; j < ls.size(); j++) {
 			Map vMap = (Map) ls.get(j);
 			String year = vMap.get("issue_date").toString().substring(0, 4);
@@ -267,12 +279,16 @@ public class KLineChart implements StockChart {
 			double vol = Double.parseDouble((String) vMap.get("volume_value")) / 10000000;
 			series2.addOrUpdate(Day.parseDay(time), vol);
 		}
-		dateaxis.setRange(mindate, maxdate);
-        dateaxis.setTimeline(timeline.finalTimeline());
+		
 		List list = plot.getSubplots();
 		XYPlot candlePlot = (XYPlot) list.get(0);
-		
 		candlePlot.setDataset(0, k_line);
+		dateaxis.setRange(mindate, maxdate);
+		
+        dateaxis.setTimeline(timeline.finalTimeline());
+       
+    	numberAxis.setRange(minValieOfKLine*0.95,maxValueOfKLine*1.05);
+    	//System.out.println(mindate);
 	}
 
 	
@@ -335,7 +351,7 @@ public class KLineChart implements StockChart {
 		}
 
 		jChart = Create();
-	
+		ClearList();
 		return jChart;
 	}
 
@@ -348,9 +364,9 @@ public class KLineChart implements StockChart {
 	 * DataInterface.Data) 用于实时更新联合画布
 	 */
 	public synchronized void UpdateChart(Data data) {
-		insertRecord();
-		for (DataItem dataItem : data) {
 		
+		for (DataItem dataItem : data) {
+			insertRecord();
 			setValue("stock_name", dataItem.get("code"));
 			setValue("issue_date", dataItem.get("time"));// 时间这个date格式不对
 			setValue("open_value", dataItem.get("open"));
@@ -364,11 +380,12 @@ public class KLineChart implements StockChart {
 			setValue("volume_value", dataItem.get("volume"));
 			setValue("vol_avg5", "0");
 			
-			
+			postRecord();
 
 		}
-		postRecord();
+	
 		ChangeChart(jChart);
+		ClearList();
 	}
 	
 	/*public synchronized void ExChangeChart(Data data) {

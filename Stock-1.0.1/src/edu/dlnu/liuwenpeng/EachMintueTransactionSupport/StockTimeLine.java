@@ -1,6 +1,5 @@
 package edu.dlnu.liuwenpeng.EachMintueTransactionSupport;
 
-import java.util.Date;
 import java.util.List;
 
 import org.jfree.chart.axis.SegmentedTimeline;
